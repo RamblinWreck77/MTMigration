@@ -10,32 +10,32 @@ private let MigrationLastAppBuildKey = "Migration.lastAppBuild"
 
 public struct Migration {
     
-    static var AppBundle: NSBundle = NSBundle.mainBundle()
+    static var AppBundle: Bundle = Bundle.main
     
-    public static func migrateToVersion(version: String, closure: ExecutionClosure) {
-        if version.compare(self.lastMigrationVersion, options: [.NumericSearch]) == .OrderedDescending &&
-            version.compare(self.appVersion, options: [.NumericSearch]) != .OrderedDescending {
+    public static func migrateToVersion(_ version: String, closure: ExecutionClosure) {
+        if version.compare(self.lastMigrationVersion, options: [.numeric]) == .orderedDescending &&
+            version.compare(self.appVersion, options: [.numeric]) != .orderedDescending {
                 closure()
                 self.setLastMigrationVersion(version)
         }
     }
     
-    public static func migrateToBuild(build: String, closure: ExecutionClosure) {
-        if build.compare(self.lastMigrationBuild, options: [.NumericSearch]) == .OrderedDescending &&
-            build.compare(self.appBuild, options: [.NumericSearch]) != .OrderedDescending {
+    public static func migrateToBuild(_ build: String, closure: ExecutionClosure) {
+        if build.compare(self.lastMigrationBuild, options: [.numeric]) == .orderedDescending &&
+            build.compare(self.appBuild, options: [.numeric]) != .orderedDescending {
                 closure()
                 self.setLastMigrationBuild(build)
         }
     }
     
-    public static func applicationUpdate(closure: ExecutionClosure) {
+    public static func applicationUpdate(_ closure: ExecutionClosure) {
         if self.lastAppVersion != self.appVersion {
             closure()
             self.setLastAppVersion(self.appVersion)
         }
     }
     
-    public static func buildNumberUpdate(closure: ExecutionClosure) {
+    public static func buildNumberUpdate(_ closure: ExecutionClosure) {
         if self.lastAppBuild != self.appBuild {
             closure()
             self.setLastAppBuild(self.appBuild)
@@ -51,47 +51,47 @@ public struct Migration {
     
     // MARK: - Private methods and properties
     
-    private static var appVersion: String {
-        return Migration.AppBundle.objectForInfoDictionaryKey("CFBundleShortVersionString") as? String ?? ""
+    fileprivate static var appVersion: String {
+        return Migration.AppBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
     }
     
-    private static var appBuild: String {
-        return Migration.AppBundle.objectForInfoDictionaryKey("CFBundleVersion") as? String ?? ""
+    fileprivate static var appBuild: String {
+        return Migration.AppBundle.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
     }
     
-    private static func setLastMigrationVersion(version: String?) {
-        NSUserDefaults.standardUserDefaults().setValue(version, forKey: MigrationLastVersionKey)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    fileprivate static func setLastMigrationVersion(_ version: String?) {
+        UserDefaults.standard.setValue(version, forKey: MigrationLastVersionKey)
+        UserDefaults.standard.synchronize()
     }
     
-    private static func setLastMigrationBuild(build: String?) {
-        NSUserDefaults.standardUserDefaults().setValue(build, forKey: MigrationLastBuildKey)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    fileprivate static func setLastMigrationBuild(_ build: String?) {
+        UserDefaults.standard.setValue(build, forKey: MigrationLastBuildKey)
+        UserDefaults.standard.synchronize()
     }
     
-    private static var lastMigrationVersion: String {
-        return NSUserDefaults.standardUserDefaults().valueForKey(MigrationLastVersionKey) as? String ?? ""
+    fileprivate static var lastMigrationVersion: String {
+        return UserDefaults.standard.value(forKey: MigrationLastVersionKey) as? String ?? ""
     }
     
-    private static var lastMigrationBuild: String {
-        return NSUserDefaults.standardUserDefaults().valueForKey(MigrationLastBuildKey) as? String ?? ""
+    fileprivate static var lastMigrationBuild: String {
+        return UserDefaults.standard.value(forKey: MigrationLastBuildKey) as? String ?? ""
     }
     
-    private static func setLastAppVersion(version: String?) {
-        NSUserDefaults.standardUserDefaults().setValue(version, forKey: MigrationLastAppVersionKey)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    fileprivate static func setLastAppVersion(_ version: String?) {
+        UserDefaults.standard.setValue(version, forKey: MigrationLastAppVersionKey)
+        UserDefaults.standard.synchronize()
     }
     
-    private static func setLastAppBuild(build: String?) {
-        NSUserDefaults.standardUserDefaults().setValue(build, forKey: MigrationLastAppBuildKey)
-        NSUserDefaults.standardUserDefaults().synchronize()
+    fileprivate static func setLastAppBuild(_ build: String?) {
+        UserDefaults.standard.setValue(build, forKey: MigrationLastAppBuildKey)
+        UserDefaults.standard.synchronize()
     }
     
-    private static var lastAppVersion: String {
-        return NSUserDefaults.standardUserDefaults().valueForKey(MigrationLastAppVersionKey) as? String ?? ""
+    fileprivate static var lastAppVersion: String {
+        return UserDefaults.standard.value(forKey: MigrationLastAppVersionKey) as? String ?? ""
     }
     
-    private static var lastAppBuild: String {
-        return NSUserDefaults.standardUserDefaults().valueForKey(MigrationLastAppBuildKey) as? String ?? ""
+    fileprivate static var lastAppBuild: String {
+        return UserDefaults.standard.value(forKey: MigrationLastAppBuildKey) as? String ?? ""
     }
 }

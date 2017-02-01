@@ -8,7 +8,7 @@ class MigrationTests: XCTestCase {
         
         Migration.reset()
         
-        let bundles: [NSBundle] = NSBundle.allBundles().filter {
+        let bundles: [Bundle] = Bundle.allBundles.filter {
             return ($0.bundleIdentifier != nil && $0.bundleIdentifier! == "mystrou.MTMigration.MTMigrationTests")
         }
         
@@ -24,34 +24,34 @@ class MigrationTests: XCTestCase {
     }
     
     func testMigrationReset() {
-        let expectation1 = self.expectationWithDescription("Expecting block to be run for version 0.9")
+        let expectation1 = self.expectation(description: "Expecting block to be run for version 0.9")
         Migration.migrateToVersion("0.9") { () -> Void in
             expectation1.fulfill()
         }
         
-        let expectation2 = self.expectationWithDescription("Expecting block to be run for version 1.0")
+        let expectation2 = self.expectation(description: "Expecting block to be run for version 1.0")
         Migration.migrateToVersion("1.0") { () -> Void in
             expectation2.fulfill()
         }
         
-        let expectation3 = self.expectationWithDescription("Expecting block to be run for version 1.0")
+        let expectation3 = self.expectation(description: "Expecting block to be run for version 1.0")
         Migration.migrateToBuild("1") { () -> Void in
             expectation3.fulfill()
         }
         
         Migration.reset()
         
-        let expectation4 = self.expectationWithDescription("Expecting block to be run again for version 0.9")
+        let expectation4 = self.expectation(description: "Expecting block to be run again for version 0.9")
         Migration.migrateToVersion("0.9") { () -> Void in
             expectation4.fulfill()
         }
         
-        let expectation5 = self.expectationWithDescription("Expecting block to be run again for version 1.0")
+        let expectation5 = self.expectation(description: "Expecting block to be run again for version 1.0")
         Migration.migrateToVersion("1.0") { () -> Void in
             expectation5.fulfill()
         }
         
-        let expectation6 = self.expectationWithDescription("Expecting block to be run for version 1.0")
+        let expectation6 = self.expectation(description: "Expecting block to be run for version 1.0")
         Migration.migrateToBuild("1") { () -> Void in
             expectation6.fulfill()
         }
@@ -60,7 +60,7 @@ class MigrationTests: XCTestCase {
     }
     
     func testMigratesOnFirstRun() {
-        let expectation = self.expectationWithDescription("Should execute migration after reset")
+        let expectation = self.expectation(description: "Should execute migration after reset")
         Migration.migrateToVersion("1.0") { () -> Void in
             expectation.fulfill()
         }
@@ -69,7 +69,7 @@ class MigrationTests: XCTestCase {
     }
     
     func testMigratesOnce() {
-        let expectation = self.expectationWithDescription("Expecting block to be run")
+        let expectation = self.expectation(description: "Expecting block to be run")
         Migration.migrateToVersion("1.0") { () -> Void in
             expectation.fulfill()
         }
@@ -82,12 +82,12 @@ class MigrationTests: XCTestCase {
     }
     
     func testMigratesPreviousBlocks() {
-        let expectation1 = self.expectationWithDescription("Expecting block to be run for version 0.9")
+        let expectation1 = self.expectation(description: "Expecting block to be run for version 0.9")
         Migration.migrateToVersion("0.9") { () -> Void in
             expectation1.fulfill()
         }
         
-        let expectation2 = self.expectationWithDescription("Expecting block to be run for version 1.0")
+        let expectation2 = self.expectation(description: "Expecting block to be run for version 1.0")
         Migration.migrateToVersion("1.0") { () -> Void in
             expectation2.fulfill()
         }
@@ -96,7 +96,7 @@ class MigrationTests: XCTestCase {
     }
     
     func testMigratesInNaturalSortOrder() {
-        let expectation1 = self.expectationWithDescription("Expecting block to be run for version 0.9")
+        let expectation1 = self.expectation(description: "Expecting block to be run for version 0.9")
         Migration.migrateToVersion("0.9") { () -> Void in
             expectation1.fulfill()
         }
@@ -105,7 +105,7 @@ class MigrationTests: XCTestCase {
             XCTFail("Should use natural sort order, e.g. treat 0.10 as a follower of 0.9")
         }
         
-        let expectation2 = self.expectationWithDescription("Expecting block to be run for version 0.10")
+        let expectation2 = self.expectation(description: "Expecting block to be run for version 0.10")
         Migration.migrateToVersion("0.10") { () -> Void in
             expectation2.fulfill()
         }
@@ -114,7 +114,7 @@ class MigrationTests: XCTestCase {
     }
     
     func testRunsApplicationUpdateBlockOnce() {
-        let expectation = self.expectationWithDescription("Should only call block once")
+        let expectation = self.expectation(description: "Should only call block once")
         Migration.applicationUpdate { () -> Void in
             expectation.fulfill()
         }
@@ -127,7 +127,7 @@ class MigrationTests: XCTestCase {
     }
     
     func testRunsBuildNumberUpdateBlockOnce() {
-        let expectation = self.expectationWithDescription("Should only call block once")
+        let expectation = self.expectation(description: "Should only call block once")
         Migration.buildNumberUpdate { () -> Void in
             expectation.fulfill()
         }
@@ -152,7 +152,7 @@ class MigrationTests: XCTestCase {
             // Do something
         }
         
-        let expectation = self.expectationWithDescription("Should call the applicationUpdate only once no matter how many migrations have to be done")
+        let expectation = self.expectation(description: "Should call the applicationUpdate only once no matter how many migrations have to be done")
         Migration.applicationUpdate { () -> Void in
             expectation.fulfill()
         }
@@ -173,7 +173,7 @@ class MigrationTests: XCTestCase {
             // Do something
         }
         
-        let expectation = self.expectationWithDescription("Should call the buildNumberUpdate only once no matter how many migrations have to be done")
+        let expectation = self.expectation(description: "Should call the buildNumberUpdate only once no matter how many migrations have to be done")
         Migration.buildNumberUpdate { () -> Void in
             expectation.fulfill()
         }
@@ -182,7 +182,7 @@ class MigrationTests: XCTestCase {
     }
     
     func waitForAllExpectations() {
-        self.waitForExpectationsWithTimeout(2.0) { (error: NSError?) -> Void in
+        self.waitForExpectations(timeout: 2.0) { (error: NSError?) -> Void in
             if let error = error {
                 print(error)
             }

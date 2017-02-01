@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		DF3083D21BD7DEC900E9361A /* MTMigration.h in Headers */ = {isa = PBXBuildFile; fileRef = DF3083D11BD7DEC900E9361A /* MTMigration.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DF3083D91BD7DEC900E9361A /* MTMigration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3083CE1BD7DEC900E9361A /* MTMigration.framework */; settings = {ASSET_TAGS = (); }; };
+		DF3083D91BD7DEC900E9361A /* MTMigration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3083CE1BD7DEC900E9361A /* MTMigration.framework */; };
 		DF3083DE1BD7DEC900E9361A /* MigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3083DD1BD7DEC900E9361A /* MigrationTests.swift */; };
-		DF3083E91BD7DF0F00E9361A /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3083E81BD7DF0F00E9361A /* Migration.swift */; settings = {ASSET_TAGS = (); }; };
+		DF3083E91BD7DF0F00E9361A /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3083E81BD7DF0F00E9361A /* Migration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,9 +151,11 @@
 				TargetAttributes = {
 					DF3083CD1BD7DEC900E9361A = {
 						CreatedOnToolsVersion = 7.0.1;
+						LastSwiftMigration = 0820;
 					};
 					DF3083D71BD7DEC900E9361A = {
 						CreatedOnToolsVersion = 7.0.1;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -325,6 +327,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -343,6 +346,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = mystrou.MTMigration.MTMigration;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -353,6 +357,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mystrou.MTMigration.MTMigrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -363,6 +368,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mystrou.MTMigration.MTMigrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
