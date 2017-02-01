@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.author       = { "Parker Wightman" => "parkerwightman@gmail.com" }
   s.source       = { :git => "https://github.com/mysterioustrousers/MTMigration.git", :tag => "#{s.version}" }
   s.source_files = 'MTMigration/MTMigration.{h,m}'
-  s.ios.deployment_target = '5.0'
+  s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.6'
   s.requires_arc = true
 end
